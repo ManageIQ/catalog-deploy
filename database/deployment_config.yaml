@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: service-portal-postgresql
+  labels:
+    app: service-portal
+spec:
+  strategy:
+    type: Recreate
+  triggers:
+  - type: ConfigChange
+  replicas: 1
+  selector:
+    name: service-portal-postgresql
+  template:
+    metadata:
+      name: service-portal-postgresql
+      labels:
+        name: service-portal-postgresql
+        app: service-portal
+    spec:
+      volumes:
+      - name: service-portal-postgresql
+        persistentVolumeClaim:
+          claimName: service-portal-postgresql
+      containers:
+      - name: service-portal-postgresql
+        image: docker.io/manageiq/postgresql:latest
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: service-portal-postgresql
+          mountPath: "/var/lib/pgsql/data"
+        env:
+        - name: POSTGRESQL_USER
+          value: root
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: service-portal-database-secrets
+              key: database-password
+        - name: POSTGRESQL_DATABASE
+          value: service_portal_production
