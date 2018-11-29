@@ -54,6 +54,16 @@ objects:
             value: service-portal-postgresql
           - name: DATABASE_PORT
             value: "5432"
+          - name: ENCRYPTION_KEY
+            valueFrom:
+              secretKeyRef:
+                name: service-portal-api-secrets
+                key: encryption-key
+          - name: SECRET_KEY_BASE
+            valueFrom:
+              secretKeyRef:
+                name: service-portal-api-secrets
+                key: secret-key
           readinessProbe:
             tcpSocket:
               port: 3000
