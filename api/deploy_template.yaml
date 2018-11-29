@@ -41,6 +41,8 @@ objects:
           ports:
           - containerPort: 3000
           env:
+          - name: APPROVAL_URL
+            value: ${APPROVAL_SCHEME}://${APPROVAL_HOST}:${APPROVAL_PORT}
           - name: DATABASE_USER
             value: root
           - name: DATABASE_PASSWORD
@@ -64,6 +66,14 @@ objects:
               secretKeyRef:
                 name: service-portal-api-secrets
                 key: secret-key
+          - name: TOPOLOGICAL_INVENTORY_URL
+            value: ${TOPOLOGICAL_INVENTORY_SCHEME}://${TOPOLOGICAL_INVENTORY_HOST}:${TOPOLOGICAL_INVENTORY_PORT}
+          - name: QUEUE_HOST
+            value: ${QUEUE_HOST}
+          - name: QUEUE_NAME
+            value: platform.service-portal
+          - name: QUEUE_PORT
+            value: "9092"
           readinessProbe:
             tcpSocket:
               port: 3000
@@ -78,7 +88,39 @@ objects:
             name: service-portal-api:latest
             namespace: ${IMAGE_NAMESPACE}
 parameters:
+- name: APPROVAL_HOST
+  displayName: Approval Service Host
+  description: Host to use for the approval URL.
+  required: true
+- name: APPROVAL_PORT
+  displayName: Approval Service Port
+  description: Port to use for the approval service URL.
+  required: true
+  value: "8080"
+- name: APPROVAL_SCHEME
+  displayName: Approval Service Scheme
+  description: Scheme to use for the approval service URL. Can be either http or https
+  required: true
+  value: http
 - name: IMAGE_NAMESPACE
   displayName: Image Namespace
   description: Namespace which contains the image stream to pull from
   value: buildfactory
+- name: TOPOLOGICAL_INVENTORY_HOST
+  displayName: Topological Inventory Host
+  description: Host to use for the topological inventory service URL.
+  required: true
+- name: TOPOLOGICAL_INVENTORY_PORT
+  displayName: Topological Inventory Port
+  description: Port to use for the topological inventory service URL.
+  required: true
+  value: "8080"
+- name: TOPOLOGICAL_INVENTORY_SCHEME
+  displayName: Topological Inventory Scheme
+  description: Scheme to use for the topological inventory service URL. Can be either http or https
+  required: true
+  value: http
+- name: QUEUE_HOST
+  displayName: Message Queue Hostname
+  description: Hostname which will be used to contact the message queue.
+  required: true
