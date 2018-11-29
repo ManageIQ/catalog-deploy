@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: service-portal-kafka
+  labels:
+    app: service-portal
+spec:
+  replicas: 1
+  selector:
+    name: service-portal-kafka
+  template:
+    metadata:
+      name: service-portal-kafka
+      labels:
+        name: service-portal-kafka
+        app: service-portal
+    spec:
+      containers:
+      - name: service-portal-kafka
+        image: manageiq/kafka:latest
+        command:
+        - bin/kafka-server-start.sh
+        args:
+        - config/server.properties
+        - --override
+        - advertised.host.name=service-portal-kafka
+        - --override
+        - log.segment.bytes=10485760
+        - --override
+        - log.retention.bytes=10485760
+        volumeMounts:
+        - mountPath: /tmp/kafka-logs
+          name: service-portal-kafka-logs
+        ports:
+        - containerPort: 9092
+      - name: service-portal-zookeeper
+        image: manageiq/kafka:latest
+        command:
+        - bin/zookeeper-server-start.sh
+        args:
+        - config/zookeeper.properties
+        volumeMounts:
+        - mountPath: /tmp/zookeeper
+          name: service-portal-zookeeper
+        ports:
+        - containerPort: 2181
+      volumes:
+      - name: service-portal-kafka-logs
+        emptyDir: {}
+      - name: service-portal-zookeeper
+        emptyDir: {}
