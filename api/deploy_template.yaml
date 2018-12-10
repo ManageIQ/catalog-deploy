@@ -78,6 +78,7 @@ objects:
             tcpSocket:
               port: 3000
     triggers:
+      - type: ConfigChange
       - type: ImageChange
         imageChangeParams:
           automatic: true
