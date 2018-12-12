@@ -43,19 +43,15 @@ objects:
           env:
           - name: APPROVAL_URL
             value: ${APPROVAL_SCHEME}://${APPROVAL_HOST}:${APPROVAL_PORT}
-          - name: DATABASE_USER
-            value: root
-          - name: DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: service-portal-database-secrets
-                key: database-password
-          - name: DATABASE_NAME
-            value: service_portal_production
           - name: DATABASE_HOST
             value: service-portal-postgresql
           - name: DATABASE_PORT
             value: "5432"
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: service-portal-database-secrets
+                key: database-url
           - name: ENCRYPTION_KEY
             valueFrom:
               secretKeyRef:
