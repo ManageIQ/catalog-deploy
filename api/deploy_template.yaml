@@ -41,6 +41,8 @@ objects:
           ports:
           - containerPort: 3000
           env:
+          - name: APP_NAME
+            value: ${APP_NAME}
           - name: APPROVAL_URL
             value: ${APPROVAL_SCHEME}://${APPROVAL_HOST}:${APPROVAL_PORT}
           - name: DATABASE_HOST
@@ -57,6 +59,8 @@ objects:
               secretKeyRef:
                 name: service-portal-api-secrets
                 key: encryption-key
+          - name: PATH_PREFIX
+            value: ${PATH_PREFIX}
           - name: SECRET_KEY_BASE
             valueFrom:
               secretKeyRef:
@@ -85,6 +89,10 @@ objects:
             name: service-portal-api:latest
             namespace: ${IMAGE_NAMESPACE}
 parameters:
+- name: APP_NAME
+  displayName: Application Name
+  description: Application name to be used in request paths. Only used when PATH_PREFIX is also specified.
+  value: service-portal
 - name: APPROVAL_HOST
   displayName: Approval Service Host
   description: Host to use for the approval URL.
@@ -103,6 +111,9 @@ parameters:
   displayName: Image Namespace
   description: Namespace which contains the image stream to pull from
   value: buildfactory
+- name: PATH_PREFIX
+  displayName: Path Prefix
+  description: Base path for the API
 - name: TOPOLOGICAL_INVENTORY_HOST
   displayName: Topological Inventory Host
   description: Host to use for the topological inventory service URL.
