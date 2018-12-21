@@ -1,0 +1,7 @@
+#!/bin/bash
+
+oc delete all -l app=service-portal
+
+oc get pvc -o name |xargs oc delete
+
+oc delete secret -l app=service-portal

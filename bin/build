@@ -1,0 +1,12 @@
+#!/bin/bash
+
+param_file=$1
+[ -z "$param_file" ] && echo -e "Error: Missing argument. Usage:\n  $0 <parameters-file>" && exit 1 
+
+function apply_template() {
+  local template=$1
+  oc process -f $template --param-file=$param_file --ignore-unknown-parameters | oc apply -f -
+}
+
+apply_template "api/build_template.yaml"
+oc start-build service-portal-api
