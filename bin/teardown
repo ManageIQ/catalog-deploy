@@ -2,6 +2,6 @@
 
 oc delete all -l app=service-portal
 
-oc get pvc -o name |xargs oc delete
+oc delete pvc service-portal-postgresql
 
 oc delete secret -l app=service-portal
