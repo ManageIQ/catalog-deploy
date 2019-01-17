@@ -30,6 +30,10 @@ objects:
       name: service-portal-api
     template:
       metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '3000'
+          prometheus.io/scrape: 'true'
         name: service-portal-api
         labels:
           app: service-portal
