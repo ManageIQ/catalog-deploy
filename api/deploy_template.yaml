@@ -63,6 +63,8 @@ objects:
               secretKeyRef:
                 name: service-portal-api-secrets
                 key: encryption-key
+          - name: ENFORCE_TENANCY
+            value: "true"
           - name: PATH_PREFIX
             value: ${PATH_PREFIX}
           - name: SECRET_KEY_BASE
