@@ -78,6 +78,8 @@ objects:
             value: platform.service-portal
           - name: QUEUE_PORT
             value: "9092"
+          - name: RBAC_URL
+            value: ${RBAC_SCHEME}://${RBAC_HOST}:${RBAC_PORT}
           readinessProbe:
             tcpSocket:
               port: 3000
@@ -136,3 +138,17 @@ parameters:
   displayName: Message Queue Hostname
   description: Hostname which will be used to contact the message queue.
   required: true
+- name: RBAC_HOST
+  displayName: Rbac Service Host
+  description: Host to use for the RBAC service URL.
+  required: true
+- name: RBAC_PORT
+  displayName: Rbac Service Port
+  description: Port to use for the RBAC service URL.
+  required: true
+  value: "8080"
+- name: RBAC_SCHEME
+  displayName: Rbac Service Scheme
+  description: Scheme to use for the RBAC service URL. Can be either http or https
+  required: true
+  value: http

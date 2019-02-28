@@ -22,6 +22,9 @@ These are the parameters that can be used when building and deploying applicatio
 | `TOPOLOGICAL_INVENTORY_HOST`   | Host to use for the topological inventory service URL   |                                  |
 | `TOPOLOGICAL_INVENTORY_PORT`   | Port to use for the topological inventory service URL   | 8080                             |
 | `TOPOLOGICAL_INVENTORY_SCHEME` | Scheme to use for the topological inventory service URL | http                             |
+| `RBAC_HOST`                    | Host to use for the RBAC service URL                    |                                  |
+| `RBAC_PORT`                    | Port to use for the RBAC service URL                    | 8080                             |
+| `RBAC_SCHEME`                  | Scheme to use for the RBAC service URL                  | http                             |
 | `DATABASE_PASSWORD`            | PostgreSQL database password                            | generated from "[a-zA-Z0-9]{8}"  |
 | `SECRET_KEY`                   | Rails secret key                                        | generated from "[a-f0-9]{128}"   |
 | `ENCRYPTION_KEY`               | Encryption key for passwords in the database            | generated from "[a-zA-Z0-9]{43}" |
@@ -51,6 +54,7 @@ IMAGE_NAMESPACE=service-portal
 APPROVAL_HOST=approval-api
 TOPOLOGICAL_INVENTORY_HOST=topological-inventory-api.topological-inventory.svc
 QUEUE_HOST=service-portal-kafka
+RBAC_HOST=rbac.rbac.svc
 ```
 
 1. Ensure you are working in the correct namespace
@@ -86,6 +90,7 @@ APPROVAL_HOST=approval-api
 TOPOLOGICAL_INVENTORY_HOST=topological-inventory-api.topological-inventory.svc.cluster.local
 QUEUE_HOST=platform-mq-ci-kafka-bootstrap.platform-mq-ci.svc
 PATH_PREFIX=r/insights/platform
+RBAC_HOST=rbac.rbac-ci.svc.cluster.local
 ```
 
 1. Ensure you are working in the correct namespace
