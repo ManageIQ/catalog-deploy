@@ -24,8 +24,8 @@ function api_secrets_provided() {
 # For us to safely create the secret we need to have either provided a password
 # or not have created the secret yet. This ensures we don't overwrite the existing
 # password with a newly generated one.
-(database_password_provided || secret_missing "service-portal-database-secrets") && apply_template "database/secret_template.yaml"
-(api_secrets_provided || secret_missing "service-portal-api-secrets") && apply_template "api/secret_template.yaml"
+(database_password_provided || secret_missing "catalog-database-secrets") && apply_template "database/secret_template.yaml"
+(api_secrets_provided || secret_missing "catalog-api-secrets") && apply_template "api/secret_template.yaml"
 
 # database
 oc apply -f database/pvc.yaml

@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-portal-postgresql
+  name: catalog-postgresql
   labels:
-    app: service-portal
+    app: catalog
 spec:
   accessModes:
   - ReadWriteOnce
