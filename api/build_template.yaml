@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: service-portal-api-build-config
+  template: catalog-api-build-config
 metadata:
-  name: service-portal-api-build-config
+  name: catalog-api-build-config
 objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: service-portal-api
+    name: catalog-api
   spec:
     tags:
     - name: latest
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: service-portal-api
+    name: catalog-api
   spec:
     source:
       type: Git
@@ -27,7 +27,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: service-portal-api:latest
+        name: catalog-api:latest
         namespace: ${IMAGE_NAMESPACE}
     triggers:
     - type: GitHub
@@ -47,7 +47,7 @@ parameters:
   description: The URL of the repository with your application source code.
   displayName: Git repository URI
   required: true
-  value: https://github.com/ManageIQ/service_portal-api
+  value: https://github.com/ManageIQ/catalog-api
 - name: SOURCE_REPOSITORY_REF
   description: Git repository branch to check out, if different from default
   displayName: Git Reference

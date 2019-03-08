@@ -9,4 +9,4 @@ function apply_template() {
 }
 
 apply_template "api/build_template.yaml"
-oc start-build service-portal-api
+oc start-build catalog-api
