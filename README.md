@@ -1,9 +1,9 @@
-# Service Portal Service OpenShift Specs and Templates
+# Catalog Service OpenShift Specs and Templates
 
 The `bin` directory contains scripts which will:
- - Create and start builds of the service portal service images (`bin/build`)
- - Deploy the service portal images into the current namespaces (`bin/deploy`)
- - Remove the service portal service (`bin/teardown`)
+ - Create and start builds of the catalog service images (`bin/build`)
+ - Deploy the catalog images into the current namespaces (`bin/deploy`)
+ - Remove the catalog service (`bin/teardown`)
 
 The build and deploy scripts require a single parameter which should be a file containing template parameters for use with `oc process`
 
@@ -12,7 +12,7 @@ These are the parameters that can be used when building and deploying applicatio
 
 | Name                           | Description                                             | Default                          |
 |--------------------------------|---------------------------------------------------------|----------------------------------|
-| `APP_NAME`                     | Name of the application                                 | service-portal                   |
+| `APP_NAME`                     | Name of the application                                 | catalog                   |
 | `PATH_PREFIX`                  | API path to listen to                                   |                                  |
 | `APPROVAL_HOST`                | Host to use for the approval URL                        |                                  |
 | `APPROVAL_PORT`                | Port to use for the approval URL                        | 8080                             |
@@ -46,21 +46,21 @@ This means that a secret will only be created or altered if it doesn't already e
 
 These examples assume the approval service will be running in the same namespace and the topological inventory service will be running in a namespace called "topological-inventory" within the same cluster.
 
-### Build and deploy in a namespace called service-portal with an internal queue
+### Build and deploy in a namespace called catalog with an internal queue
 Parameters file (`params-file`) contains the following:
 
 ```plain
-IMAGE_NAMESPACE=service-portal
+IMAGE_NAMESPACE=catalog
 APPROVAL_HOST=approval-api
 TOPOLOGICAL_INVENTORY_HOST=topological-inventory-api.topological-inventory.svc
-QUEUE_HOST=service-portal-kafka
+QUEUE_HOST=catalog-kafka
 RBAC_HOST=rbac.rbac.svc
 ```
 
 1. Ensure you are working in the correct namespace
 
 ```bash
-oc project service-portal
+oc project catalog
 ```
 
 2. Create and run builds
@@ -96,7 +96,7 @@ RBAC_HOST=rbac.rbac-ci.svc.cluster.local
 1. Ensure you are working in the correct namespace
 
 ```bash
-oc project service-portal
+oc project catalog
 ```
 
 2. Deploy the things
