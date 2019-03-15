@@ -33,11 +33,14 @@ spec:
           mountPath: "/var/lib/pgsql/data"
         env:
         - name: POSTGRESQL_USER
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: catalog-db
+              key: username
         - name: POSTGRESQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: catalog-database-secrets
-              key: database-password
+              name: catalog-db
+              key: password
         - name: POSTGRESQL_DATABASE
           value: catalog_production

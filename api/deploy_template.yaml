@@ -50,14 +50,22 @@ objects:
           - name: APPROVAL_URL
             value: ${APPROVAL_SCHEME}://${APPROVAL_HOST}:${APPROVAL_PORT}
           - name: DATABASE_HOST
-            value: catalog-postgresql
-          - name: DATABASE_PORT
-            value: "5432"
-          - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: catalog-database-secrets
-                key: database-url
+                name: catalog-db
+                key: hostname
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: catalog-db
+                key: password
+          - name: DATABASE_PORT
+            value: "5432"
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: catalog-db
+                key: username
           - name: ENCRYPTION_KEY
             valueFrom:
               secretKeyRef:
