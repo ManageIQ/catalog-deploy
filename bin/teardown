@@ -1,7 +1,0 @@
-#!/bin/bash
-
-oc delete all -l app=catalog
-
-oc delete pvc catalog-postgresql
-
-oc delete secret -l app=catalog
